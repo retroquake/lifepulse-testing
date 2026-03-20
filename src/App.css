@@ -207,3 +207,511 @@
     box-shadow: 0 0 0 0 rgba(34, 197, 94, 0);
   }
 }
+
+.medical-shell {
+  font-family:
+    'Inter', 'Segoe UI', Roboto, 'Helvetica Neue', Arial, 'Noto Sans', sans-serif;
+  padding: 16px;
+  color: #0f172a;
+}
+
+.role-toggle {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+}
+
+.role-btn {
+  flex: 1 1 0;
+  padding: 12px 14px;
+  border-radius: 10px;
+  border: 1px solid #e2e8f0;
+  cursor: pointer;
+  font-weight: 700;
+  background: white;
+  color: #0f172a;
+}
+
+.active-citizen {
+  background: #ffe4e6;
+  border-color: #fda4af;
+}
+
+.active-responder {
+  background: #e0f2fe;
+  border-color: #93c5fd;
+}
+
+.medical-id-bar {
+  border: 1px solid #e2e8f0;
+  background: #ffffff;
+  border-radius: 12px;
+  padding: 10px 14px;
+  margin-bottom: 16px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-weight: 700;
+  box-shadow: 0 4px 14px rgba(15, 23, 42, 0.05);
+}
+
+.medical-id-tag {
+  font-size: 12px;
+  color: #0369a1;
+  background: #e0f2fe;
+  border: 1px solid #bae6fd;
+  padding: 4px 8px;
+  border-radius: 999px;
+}
+
+.sos-pulse-btn {
+  width: 220px;
+  height: 220px;
+  margin: 18px auto 0;
+  border-radius: 999px;
+  border: none;
+  background: #be123c;
+  color: #ffffff;
+  font-size: 34px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  cursor: pointer;
+  box-shadow: 0 16px 30px rgba(190, 18, 60, 0.28);
+}
+
+.citizen-coord-list {
+  margin-top: 20px;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #ffffff;
+  padding: 12px 16px;
+  text-align: left;
+}
+
+.immediate-actions-card {
+  margin-top: 20px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 16px 18px;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.04);
+}
+
+.immediate-actions-title {
+  margin: 0 0 12px 0;
+  font-size: 15px;
+  font-weight: 800;
+  color: #0f172a;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+
+.immediate-actions-list {
+  margin: 0;
+  padding-left: 1.15rem;
+  color: #1e293b;
+  font-size: 14px;
+  line-height: 1.55;
+  font-weight: 600;
+}
+
+.immediate-actions-list li {
+  margin-bottom: 8px;
+}
+
+.immediate-actions-list li:last-child {
+  margin-bottom: 0;
+}
+
+.call-responder-handshake {
+  margin-top: 18px;
+}
+
+/* Primary action — professional blue for panic-friendly visibility */
+.call-responder-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 14px 22px;
+  border-radius: 10px;
+  border: 1px solid #0369a1;
+  background: #0284c7;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 16px;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
+  transition:
+    background 0.15s ease,
+    box-shadow 0.15s ease,
+    transform 0.12s ease;
+}
+
+.call-responder-btn:hover {
+  background: #0369a1;
+  box-shadow: 0 6px 18px rgba(2, 132, 199, 0.45);
+}
+
+.call-responder-btn:active {
+  transform: scale(0.98);
+}
+
+.call-responder-btn:focus-visible {
+  outline: 3px solid #7dd3fc;
+  outline-offset: 2px;
+}
+
+.call-responder-btn .call-responder-icon {
+  flex-shrink: 0;
+}
+
+.call-responder-connecting {
+  margin: 0;
+  padding: 14px 18px;
+  border-radius: 10px;
+  border: 1px solid #bae6fd;
+  background: #f0f9ff;
+  color: #0c4a6e;
+  font-weight: 700;
+  font-size: 15px;
+  text-align: center;
+  animation: call-responder-pulse 1.5s ease-in-out infinite;
+}
+
+@keyframes call-responder-pulse {
+  0%,
+  100% {
+    opacity: 1;
+  }
+  50% {
+    opacity: 0.72;
+  }
+}
+
+.call-citizen-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  padding: 10px 14px;
+  border-radius: 10px;
+  border: 1px solid #334155;
+  background: #ffffff;
+  color: #0f172a;
+  font-weight: 800;
+  font-size: 14px;
+  text-decoration: none;
+  box-shadow: 0 2px 8px rgba(15, 23, 42, 0.06);
+  transition:
+    background 0.15s ease,
+    color 0.15s ease,
+    border-color 0.15s ease;
+}
+
+.call-citizen-btn:hover {
+  background: #f8fafc;
+  border-color: #0f172a;
+}
+
+.call-citizen-btn:focus-visible {
+  outline: 2px solid #0ea5e9;
+  outline-offset: 2px;
+}
+
+.dispatched-card {
+  border: 1px solid #bae6fd;
+  background: #f0f9ff;
+  border-radius: 12px;
+  padding: 18px;
+}
+
+.dispatched-header {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  font-weight: 800;
+  color: #0c4a6e;
+}
+
+.dispatch-progress {
+  height: 10px;
+  width: 100%;
+  margin-top: 14px;
+  border-radius: 999px;
+  background: #dbeafe;
+  overflow: hidden;
+}
+
+.dispatch-progress-fill {
+  width: 55%;
+  height: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+  animation: loading-move 1.8s ease-in-out infinite;
+}
+
+@keyframes loading-move {
+  0% {
+    transform: translateX(-35%);
+  }
+  50% {
+    transform: translateX(25%);
+  }
+  100% {
+    transform: translateX(-35%);
+  }
+}
+
+.safe-summary-card {
+  border: 1px solid #86efac;
+  background: #f0fdf4;
+  border-radius: 12px;
+  padding: 22px;
+  text-align: left;
+}
+
+.responder-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  padding: 16px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+}
+
+.metric-strong {
+  margin-top: 6px;
+  color: #1e293b;
+  font-size: 20px;
+  font-weight: 800;
+}
+
+.accept-btn {
+  flex: 1;
+  padding: 14px 12px;
+  background: linear-gradient(180deg, #dc2626, #be123c);
+  color: white;
+  border: none;
+  border-radius: 10px;
+  font-weight: 800;
+  font-size: 18px;
+  cursor: pointer;
+  box-shadow: 0 8px 18px rgba(190, 18, 60, 0.25);
+}
+
+.accept-btn:disabled {
+  opacity: 0.65;
+  cursor: not-allowed;
+}
+
+.emergency-map {
+  margin-top: 12px;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 14px;
+  border: 1px solid #cbd5e1;
+  border-radius: 14px;
+  background: #f8fafc;
+}
+
+.emergency-map-title {
+  font-weight: 800;
+  margin-bottom: 8px;
+}
+
+.emergency-map-coords {
+  font-size: 15px;
+  font-weight: 600;
+  color: #334155;
+}
+
+.medical-profile-box {
+  margin-top: 12px;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 12px;
+  text-align: left;
+  color: #1e293b;
+  font-size: 14px;
+  line-height: 1.45;
+}
+
+.medical-profile-title {
+  font-weight: 800;
+  margin-bottom: 8px;
+  color: #0f172a;
+}
+
+.responder-onboarding {
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  background: #ffffff;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.05);
+  padding: 16px;
+}
+
+.onboarding-card {
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  background: #f8fafc;
+  padding: 14px;
+  text-align: left;
+}
+
+.onboarding-card.success {
+  background: #f0fdf4;
+  border-color: #bbf7d0;
+}
+
+.onboarding-label {
+  display: block;
+  font-weight: 700;
+  color: #1e293b;
+  margin-bottom: 10px;
+}
+
+.onboarding-input {
+  margin-top: 6px;
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #cbd5e1;
+  border-radius: 10px;
+  padding: 10px;
+  font: inherit;
+}
+
+.onboarding-btn {
+  margin-top: 8px;
+  border: none;
+  border-radius: 10px;
+  background: #0ea5e9;
+  color: #ffffff;
+  font-weight: 800;
+  padding: 10px 14px;
+  cursor: pointer;
+}
+
+.onboarding-btn:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.upload-dropzone {
+  border: 1px dashed #94a3b8;
+  border-radius: 12px;
+  padding: 16px;
+  display: block;
+  background: #ffffff;
+  cursor: pointer;
+}
+
+.upload-dropzone input[type='file'] {
+  display: block;
+  margin-top: 10px;
+}
+
+.onboarding-progress-track {
+  height: 10px;
+  width: 100%;
+  background: #dbeafe;
+  border-radius: 999px;
+  overflow: hidden;
+}
+
+.onboarding-progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #0ea5e9, #22d3ee);
+  transition: width 0.2s ease;
+}
+
+.cpr-card {
+  margin-top: 16px;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 14px;
+  box-shadow: 0 8px 20px rgba(15, 23, 42, 0.06);
+  padding: 14px;
+  text-align: left;
+}
+
+.cpr-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  color: #0f172a;
+}
+
+.cpr-header h3 {
+  margin: 0;
+  font-size: 16px;
+  font-weight: 800;
+}
+
+.cpr-header span {
+  font-size: 13px;
+  color: #0f766e;
+  font-weight: 700;
+}
+
+.cpr-heart-wrap {
+  margin-top: 12px;
+  display: flex;
+  justify-content: center;
+}
+
+.cpr-heart {
+  color: #be123c;
+}
+
+.cpr-heart.is-running {
+  animation: cpr-beat 0.545s ease-in-out infinite;
+  transform-origin: center;
+}
+
+.cpr-tip {
+  margin-top: 10px;
+  color: #334155;
+  font-size: 14px;
+}
+
+.cpr-controls {
+  margin-top: 12px;
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.cpr-volume-btn {
+  width: 40px;
+  height: 40px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: #0f172a;
+  cursor: pointer;
+  padding: 0;
+}
+
+@keyframes cpr-beat {
+  0% {
+    transform: scale(0.92);
+    opacity: 0.9;
+  }
+  35% {
+    transform: scale(1.08);
+    opacity: 1;
+  }
+  70% {
+    transform: scale(0.97);
+    opacity: 0.95;
+  }
+  100% {
+    transform: scale(0.92);
+    opacity: 0.9;
+  }
+}

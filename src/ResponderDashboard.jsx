@@ -1,5 +1,12 @@
 import { useEffect, useMemo, useState } from 'react'
+import { Phone } from 'lucide-react'
 import { supabase } from './supabaseClient'
+
+function telHref(phone) {
+  if (phone == null || typeof phone !== 'string') return null
+  const cleaned = phone.replace(/\s/g, '')
+  return cleaned.length > 0 ? `tel:${cleaned}` : null
+}
 
 function formatCreatedTime(row) {
   const raw =
@@ -72,6 +79,7 @@ function EmergencyCard({
     longitude: Number(row.longitude),
   })
   const isAccepted = Boolean(row.is_accepted)
+  const citizenTel = telHref(row.citizen_phone)
 
   return (
     <div
@@ -82,7 +90,12 @@ function EmergencyCard({
         background: '#ffffff',
       }}
     >
-      <div style={{ fontWeight: 800, marginBottom: 6 }}>Emergency</div>
+      <div style={{ fontWeight: 800, marginBottom: 4 }}>
+        {row.citizen_name?.trim() ? row.citizen_name : 'Unknown Citizen'}
+      </div>
+      <div style={{ fontWeight: 700, marginBottom: 6, color: '#475569' }}>
+        Emergency
+      </div>
       <div style={{ marginTop: 6, color: '#6b7280', fontSize: 14 }}>
         Distance:{' '}
         {distanceKm == null ? 'Unknown' : `${distanceKm.toFixed(2)} km`}
@@ -90,6 +103,15 @@ function EmergencyCard({
       <div style={{ marginTop: 4, color: '#6b7280', fontSize: 14 }}>
         Time: {formatCreatedTime(row)}
       </div>
+
+      {citizenTel && !isAccepted ? (
+        <div style={{ marginTop: 12 }}>
+          <a className="call-citizen-btn" href={citizenTel}>
+            <Phone size={18} strokeWidth={2.25} aria-hidden />
+            Call Citizen
+          </a>
+        </div>
+      ) : null}
 
       {!isAccepted ? (
         <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
@@ -131,14 +153,49 @@ function EmergencyCard({
       ) : (
         <>
           <EmergencyMap latitude={row.latitude} longitude={row.longitude} />
+          <div className="medical-profile-box">
+            {/* <div className="medical-profile-title">Medical ID</div> */}
+            <div>Blood Group: {row.blood_group ?? 'Unknown'}</div>
+            <div>
+              Conditions/Allergies:{' '}
+              {row.medical_conditions?.trim()
+                ? row.medical_conditions
+                : 'Not provided'}
+            </div>
+            <div>
+              Emergency Contact:{' '}
+              {row.emergency_contact_name || row.emergency_contact_phone
+                ? (
+                    <>
+                      {row.emergency_contact_name ?? 'Unknown'} (
+                      {row.emergency_contact_phone ? (
+                        <a href={`tel:${row.emergency_contact_phone}`}>
+                          {row.emergency_contact_phone}
+                        </a>
+                      ) : (
+                        'Unknown'
+                      )}
+                      )
+                    </>
+                  )
+                : 'Not provided'}
+            </div>
+          </div>
           <div
             style={{
               marginTop: 10,
               display: 'flex',
+              flexWrap: 'wrap',
               gap: 10,
               alignItems: 'center',
             }}
           >
+            {citizenTel ? (
+              <a className="call-citizen-btn" href={citizenTel}>
+                <Phone size={18} strokeWidth={2.25} aria-hidden />
+                Call Citizen
+              </a>
+            ) : null}
             <a
               href={getGoogleMapsUrl(row.latitude, row.longitude)}
               target="_blank"
@@ -337,15 +394,39 @@ export default function ResponderDashboard() {
     const responderLat = responderLocation?.latitude ?? null
     const responderLng = responderLocation?.longitude ?? null
 
-    const { error } = await supabase
+    const { data: userData } = await supabase.auth.getUser()
+    const rawPhone = userData?.user?.user_metadata?.phone_number
+    const responderPhone =
+      typeof rawPhone === 'string' && rawPhone.trim() ? rawPhone.trim() : null
+
+    const updatePayload = {
+      is_accepted: true,
+      responder_id: 'demo_responder_1',
+      responder_lat: responderLat,
+      responder_lng: responderLng,
+    }
+    if (responderPhone) {
+      updatePayload.responder_phone = responderPhone
+    }
+
+    let { error } = await supabase
       .from('emergencies')
-      .update({
-        is_accepted: true,
-        responder_id: 'demo_responder_1',
-        responder_lat: responderLat,
-        responder_lng: responderLng,
-      })
+      .update(updatePayload)
       .eq('id', row.id)
+
+    const errMsg = error?.message ?? ''
+    if (error?.code === 'PGRST204' && errMsg.includes('responder_phone')) {
+      console.warn(
+        '[LifePulse] Add column responder_phone (see supabase/migrations/20260220120000_add_emergency_phone_columns.sql). Retrying accept without responder phone.'
+      )
+      const withoutResponderPhone = { ...updatePayload }
+      delete withoutResponderPhone.responder_phone
+      const retry = await supabase
+        .from('emergencies')
+        .update(withoutResponderPhone)
+        .eq('id', row.id)
+      error = retry.error
+    }
 
     if (error) {
       console.error('Failed to accept emergency:', error)

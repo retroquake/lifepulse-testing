@@ -2,6 +2,10 @@
 
 This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
 
+## LifePulse / Supabase
+
+Run `supabase/migrations/20260220120000_add_emergency_phone_columns.sql` in the Supabase **SQL Editor** so `emergencies` has `citizen_phone` and `responder_phone` (used for SOS inserts, accept updates, and `tel:` links). Without these columns, the app retries without the missing field and logs a warning.
+
 Currently, two official plugins are available:
 
 - [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
