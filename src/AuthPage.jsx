@@ -270,10 +270,10 @@ export default function AuthPage() {
                   </label>
                 </div>
 
-                <div className="lp-select-outlined">
-                  <label htmlFor="lp-auth-blood">Blood group</label>
+                <div className="lp-float-field lp-float-field--select">
                   <select
                     id="lp-auth-blood"
+                    className="lp-float-input lp-float-input--select"
                     value={bloodGroup}
                     onChange={(event) => setBloodGroup(event.target.value)}
                   >
@@ -283,6 +283,9 @@ export default function AuthPage() {
                       </option>
                     ))}
                   </select>
+                  <label htmlFor="lp-auth-blood" className="lp-float-label">
+                    Blood group
+                  </label>
                 </div>
 
                 <div className="lp-float-field">
