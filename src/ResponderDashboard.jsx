@@ -48,18 +48,14 @@ function getDistanceKm(from, to) {
 
 function EmergencyMap({ latitude, longitude }) {
   return (
-    <div
-      style={{
-        marginTop: 10,
-        padding: 12,
-        border: '1px solid #d1d5db',
-        borderRadius: 10,
-        background: '#f9fafb',
-      }}
-    >
-      <div style={{ fontWeight: 700, marginBottom: 6 }}>EmergencyMap</div>
-      <div style={{ fontSize: 14 }}>
-        Latitude: {latitude}, Longitude: {longitude}
+    <div className="lp-emergency-map">
+      <div style={{ fontWeight: 800, marginBottom: 8, fontSize: '0.7rem', textTransform: 'uppercase', letterSpacing: '0.1em', color: '#64748b' }}>
+        Location
+      </div>
+      <div style={{ fontSize: '0.9rem', color: '#334155', fontWeight: 600, lineHeight: 1.5 }}>
+        Latitude: {latitude}
+        <br />
+        Longitude: {longitude}
       </div>
     </div>
   )
@@ -80,32 +76,26 @@ function EmergencyCard({
   })
   const isAccepted = Boolean(row.is_accepted)
   const citizenTel = telHref(row.citizen_phone)
+  const citizenDisplayName = row.citizen_name?.trim()
+    ? row.citizen_name
+    : 'Unknown citizen'
+  const bloodDisplay = row.blood_group?.trim() ? row.blood_group : '—'
 
   return (
-    <div
-      style={{
-        border: '1px solid #e5e7eb',
-        borderRadius: 12,
-        padding: 14,
-        background: '#ffffff',
-      }}
-    >
-      <div style={{ fontWeight: 800, marginBottom: 4 }}>
-        {row.citizen_name?.trim() ? row.citizen_name : 'Unknown Citizen'}
+    <div className="lp-emergency-card">
+      <div className="lp-medical-id-header">
+        <span className="lp-badge-name">{citizenDisplayName}</span>
+        <span className="lp-badge-blood">{bloodDisplay}</span>
       </div>
-      <div style={{ fontWeight: 700, marginBottom: 6, color: '#475569' }}>
-        Emergency
-      </div>
-      <div style={{ marginTop: 6, color: '#6b7280', fontSize: 14 }}>
+      <div className="lp-emergency-label">Active emergency</div>
+      <div className="lp-emergency-meta">
         Distance:{' '}
         {distanceKm == null ? 'Unknown' : `${distanceKm.toFixed(2)} km`}
       </div>
-      <div style={{ marginTop: 4, color: '#6b7280', fontSize: 14 }}>
-        Time: {formatCreatedTime(row)}
-      </div>
+      <div className="lp-emergency-meta">Reported: {formatCreatedTime(row)}</div>
 
       {citizenTel && !isAccepted ? (
-        <div style={{ marginTop: 12 }}>
+        <div className="lp-action-row">
           <a className="call-citizen-btn" href={citizenTel}>
             <Phone size={18} strokeWidth={2.25} aria-hidden />
             Call Citizen
@@ -114,62 +104,44 @@ function EmergencyCard({
       ) : null}
 
       {!isAccepted ? (
-        <div style={{ display: 'flex', gap: 10, marginTop: 12 }}>
+        <div className="lp-action-row">
           <button
             type="button"
+            className="lp-btn-accept-sos"
             onClick={onAccept}
             disabled={isAccepting}
-            style={{
-              flex: 1,
-              padding: '14px 12px',
-              background: '#dc2626',
-              color: 'white',
-              border: 'none',
-              borderRadius: 10,
-              fontWeight: 800,
-              fontSize: 18,
-              cursor: isAccepting ? 'not-allowed' : 'pointer',
-              opacity: isAccepting ? 0.65 : 1,
-            }}
           >
-            {isAccepting ? 'ACCEPTING...' : 'ACCEPT SOS'}
+            {isAccepting ? 'Accepting…' : 'Accept SOS'}
           </button>
           <button
             type="button"
+            className="lp-btn-decline-secondary"
             onClick={onDecline}
-            style={{
-              padding: '14px 12px',
-              background: 'white',
-              color: '#111827',
-              border: '1px solid #d1d5db',
-              borderRadius: 10,
-              fontWeight: 700,
-              cursor: 'pointer',
-            }}
           >
-            DECLINE
+            Decline
           </button>
         </div>
       ) : (
         <>
           <EmergencyMap latitude={row.latitude} longitude={row.longitude} />
           <div className="medical-profile-box">
-            {/* <div className="medical-profile-title">Medical ID</div> */}
-            <div>Blood Group: {row.blood_group ?? 'Unknown'}</div>
             <div>
-              Conditions/Allergies:{' '}
+              <strong>Blood group:</strong> {row.blood_group ?? 'Unknown'}
+            </div>
+            <div style={{ marginTop: 8 }}>
+              <strong>Conditions / allergies:</strong>{' '}
               {row.medical_conditions?.trim()
                 ? row.medical_conditions
                 : 'Not provided'}
             </div>
-            <div>
-              Emergency Contact:{' '}
+            <div style={{ marginTop: 8 }}>
+              <strong>Emergency contact:</strong>{' '}
               {row.emergency_contact_name || row.emergency_contact_phone
                 ? (
                     <>
                       {row.emergency_contact_name ?? 'Unknown'} (
                       {row.emergency_contact_phone ? (
-                        <a href={`tel:${row.emergency_contact_phone}`}>
+                        <a href={`tel:${row.emergency_contact_phone.replace(/\s/g, '')}`}>
                           {row.emergency_contact_phone}
                         </a>
                       ) : (
@@ -181,15 +153,7 @@ function EmergencyCard({
                 : 'Not provided'}
             </div>
           </div>
-          <div
-            style={{
-              marginTop: 10,
-              display: 'flex',
-              flexWrap: 'wrap',
-              gap: 10,
-              alignItems: 'center',
-            }}
-          >
+          <div className="lp-action-row">
             {citizenTel ? (
               <a className="call-citizen-btn" href={citizenTel}>
                 <Phone size={18} strokeWidth={2.25} aria-hidden />
@@ -197,36 +161,20 @@ function EmergencyCard({
               </a>
             ) : null}
             <a
+              className="lp-btn-maps-secondary"
               href={getGoogleMapsUrl(row.latitude, row.longitude)}
               target="_blank"
               rel="noreferrer"
-              style={{
-                textDecoration: 'none',
-                background: '#2563eb',
-                color: 'white',
-                padding: '10px 12px',
-                borderRadius: 8,
-                fontWeight: 700,
-              }}
             >
               Open in Google Maps
             </a>
             <button
               type="button"
+              className="lp-btn-resolved"
               onClick={onResolve}
               disabled={isResolving}
-              style={{
-                background: '#16a34a',
-                color: 'white',
-                border: 'none',
-                padding: '10px 14px',
-                borderRadius: 8,
-                fontWeight: 800,
-                cursor: isResolving ? 'not-allowed' : 'pointer',
-                opacity: isResolving ? 0.65 : 1,
-              }}
             >
-              {isResolving ? 'RESOLVING...' : 'MARK AS RESOLVED'}
+              {isResolving ? 'Resolving…' : 'Mark as resolved'}
             </button>
           </div>
         </>
@@ -468,15 +416,20 @@ export default function ResponderDashboard() {
   })
 
   return (
-    <div style={{ padding: 16, fontFamily: 'system-ui, sans-serif' }}>
-      <h2 style={{ margin: '0 0 12px 0' }}>Responder Dashboard</h2>
+    <div className="lp-responder-dashboard">
+      <h2 className="lp-page-title">Responder dashboard</h2>
+      <p className="lp-page-sub">Review and respond to active emergencies.</p>
 
       {isLoading ? (
-        <div>Loading...</div>
+        <div className="lp-emergency-meta">Loading…</div>
       ) : visibleRows.length === 0 ? (
-        <div>No active emergencies</div>
+        <div className="lp-emergency-card">
+          <p className="lp-emergency-meta" style={{ margin: 0 }}>
+            No active emergencies.
+          </p>
+        </div>
       ) : (
-        <div style={{ display: 'grid', gap: 12 }}>
+        <div className="lp-emergency-grid">
           {visibleRows.map((row, idx) => {
             const rowKey = getRowKey(row, idx)
             return (

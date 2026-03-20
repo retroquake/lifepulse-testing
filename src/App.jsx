@@ -323,75 +323,52 @@ function App() {
   return (
     <div className="medical-shell">
       {isAuthLoading ? (
-        <p>Loading...</p>
+        <p className="lp-emergency-meta">Loading…</p>
       ) : !session ? (
         <AuthPage />
       ) : userRole === 'responder' ? (
         <>
-          <div style={{ textAlign: 'right', marginBottom: 12 }}>
+          <div className="lp-toolbar">
             <button type="button" className="role-btn" onClick={handleLogout}>
-              Logout
+              Log out
             </button>
           </div>
           <ResponderDashboard />
         </>
       ) : (
-        <main style={{ padding: '0 0 24px' }}>
-          <div style={{ textAlign: 'right', marginBottom: 12 }}>
+        <main className="lp-citizen-main">
+          <div className="lp-toolbar" style={{ width: '100%', maxWidth: '28rem' }}>
             <button type="button" className="role-btn" onClick={handleLogout}>
-              Logout
+              Log out
             </button>
           </div>
 
           {isResolved ? (
             <div className="safe-summary-card">
               <div style={{ textAlign: 'center' }}>
-                <div
-                  style={{
-                    color: '#16a34a',
-                    fontSize: 78,
-                    lineHeight: 1,
-                    fontWeight: 900,
-                  }}
-                >
+                <div className="lp-safe-check" aria-hidden>
                   ✓
                 </div>
-                <h2 style={{ color: '#166534', margin: '12px 0 8px 0' }}>
-                  You are Safe
+                <h2 style={{ color: '#14532d', margin: '1rem 0 0 0' }}>
+                  You are safe
                 </h2>
               </div>
 
-              <p style={{ color: '#166534', fontWeight: 700, marginTop: 8 }}>
-                Emergency Resolved. You are safe. The responder has marked the
-                incident as complete.
+              <p className="lp-safe-lead">
+                Emergency resolved. You are safe — the responder has marked the
+                incident complete.
               </p>
 
-              <div
-                style={{
-                  marginTop: 14,
-                  border: '1px solid #bbf7d0',
-                  borderRadius: 10,
-                  padding: 12,
-                  background: '#ffffff',
-                }}
-              >
+              <div className="lp-nested-card">
                 <p style={{ margin: 0, color: '#14532d', fontWeight: 700 }}>
-                  Response Time: {responseTimeText}
+                  Response time: {responseTimeText}
                 </p>
                 <p style={{ margin: '8px 0 0 0', color: '#14532d', fontWeight: 700 }}>
                   Responder: {resolvedResponderLabel}
                 </p>
               </div>
 
-              <div
-                style={{
-                  marginTop: 14,
-                  border: '1px solid #bbf7d0',
-                  borderRadius: 10,
-                  padding: 12,
-                  background: '#ffffff',
-                }}
-              >
+              <div className="lp-nested-card">
                 <p style={{ margin: 0, color: '#14532d', fontWeight: 800 }}>
                   Feedback
                 </p>
@@ -399,7 +376,7 @@ function App() {
                   style={{
                     margin: '8px 0 0 0',
                     fontSize: 28,
-                    color: '#f59e0b',
+                    color: '#d97706',
                     letterSpacing: 2,
                   }}
                 >
@@ -410,17 +387,8 @@ function App() {
               <div style={{ textAlign: 'center' }}>
                 <button
                   type="button"
+                  className="lp-btn-finish"
                   onClick={() => window.location.reload()}
-                  style={{
-                    marginTop: 16,
-                    background: '#16a34a',
-                    color: 'white',
-                    border: 'none',
-                    padding: '10px 16px',
-                    borderRadius: 8,
-                    fontWeight: 800,
-                    cursor: 'pointer',
-                  }}
                 >
                   Finish
                 </button>
@@ -431,23 +399,17 @@ function App() {
               <div className="dispatched-card">
                 <div className="dispatched-header">
                   <div className="pulse-dot" />
-                  <span>Responder Dispatched</span>
+                  <span>Responder dispatched</span>
                 </div>
-                <p
-                  style={{
-                    color: '#166534',
-                    fontWeight: 800,
-                    fontSize: 20,
-                    marginTop: 14,
-                  }}
-                >
-                  HELP IS ON THE WAY! A responder has been dispatched.
+                <p className="lp-dispatch-headline">
+                  Help is on the way. A responder has been dispatched to your
+                  location.
                 </p>
                 <div className="dispatch-progress">
                   <div className="dispatch-progress-fill" />
                 </div>
                 {responderDistanceKm != null ? (
-                  <p style={{ color: '#166534', marginTop: 10, fontWeight: 700 }}>
+                  <p className="lp-dispatch-meta">
                     Responder distance: {responderDistanceKm.toFixed(2)} km
                   </p>
                 ) : null}
@@ -483,9 +445,7 @@ function App() {
               ) : null}
 
               {saveMessage ? (
-                <p style={{ color: 'green', marginTop: '16px', fontWeight: 700 }}>
-                  {saveMessage}
-                </p>
+                <p className="lp-success-toast">{saveMessage}</p>
               ) : null}
 
               {myEmergencyId && !isAccepted && !isResolved ? (

@@ -45,13 +45,14 @@ export default function CPRMetronome() {
       return
     }
 
-    setBeatTick((value) => value + 1)
-    playBeep()
-
-    intervalRef.current = window.setInterval(() => {
+    const tick = () => {
       setBeatTick((value) => value + 1)
       playBeep()
-    }, BEAT_MS)
+    }
+
+    queueMicrotask(tick)
+
+    intervalRef.current = window.setInterval(tick, BEAT_MS)
 
     return () => {
       if (intervalRef.current) {
@@ -78,7 +79,13 @@ export default function CPRMetronome() {
       </div>
 
       <div className="cpr-heart-wrap" key={beatTick}>
-        <Heart className={`cpr-heart ${isRunning ? 'is-running' : ''}`} size={56} />
+        <Heart
+          className={`cpr-heart ${isRunning ? 'is-running' : ''}`}
+          size={52}
+          strokeWidth={1.35}
+          fill="none"
+          aria-hidden
+        />
       </div>
 
       <p className="cpr-tip">
@@ -88,7 +95,7 @@ export default function CPRMetronome() {
       <div className="cpr-controls">
         <button
           type="button"
-          className="onboarding-btn"
+          className="cpr-start-btn"
           onClick={() => setIsRunning((value) => !value)}
         >
           {isRunning ? 'STOP' : 'START'}

@@ -119,129 +119,161 @@ export default function AuthPage() {
 
   return (
     <div className="responder-onboarding">
-      <h2 style={{ marginTop: 0 }}>{mode === 'signup' ? 'Create Account' : 'Login'}</h2>
+      <div className="lp-auth-heading">
+        <p className="lp-auth-brand">LifePulse</p>
+        <h2 style={{ marginTop: 0 }}>
+          {mode === 'signup' ? 'Create Account' : 'Sign In'}
+        </h2>
+      </div>
 
-      <form onSubmit={handleSubmit} className="onboarding-card">
-        <label className="onboarding-label">
-          Email
+      <form onSubmit={handleSubmit} className="onboarding-card" noValidate>
+        <div className="lp-float-field">
           <input
-            className="onboarding-input"
+            id="lp-auth-email"
+            className="lp-float-input"
             type="email"
+            placeholder=" "
             required
+            autoComplete="email"
             value={email}
             onChange={(event) => setEmail(event.target.value)}
-            placeholder="you@example.com"
           />
-        </label>
+          <label htmlFor="lp-auth-email" className="lp-float-label">
+            Email
+          </label>
+        </div>
 
-        <label className="onboarding-label">
-          Password
+        <div className="lp-float-field">
           <input
-            className="onboarding-input"
+            id="lp-auth-password"
+            className="lp-float-input"
             type="password"
+            placeholder=" "
             required
             minLength={6}
+            autoComplete={mode === 'signup' ? 'new-password' : 'current-password'}
             value={password}
             onChange={(event) => setPassword(event.target.value)}
-            placeholder="At least 6 characters"
           />
-        </label>
+          <label htmlFor="lp-auth-password" className="lp-float-label">
+            Password
+          </label>
+        </div>
 
         {mode === 'signup' ? (
           <>
-            <fieldset className="onboarding-label" style={{ border: 'none', padding: 0 }}>
-              <legend style={{ marginBottom: 8, fontWeight: 700 }}>Role</legend>
-              <label style={{ marginRight: 16 }}>
-                <input
-                  type="radio"
-                  name="role"
-                  value="citizen"
-                  checked={role === 'citizen'}
-                  onChange={(event) => setRole(event.target.value)}
-                />{' '}
-                Citizen
-              </label>
-              <label>
-                <input
-                  type="radio"
-                  name="role"
-                  value="responder"
-                  checked={role === 'responder'}
-                  onChange={(event) => setRole(event.target.value)}
-                />{' '}
-                Responder
-              </label>
+            <fieldset className="lp-fieldset">
+              <legend className="lp-fieldset-legend">Role</legend>
+              <div className="lp-radio-row">
+                <label>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="citizen"
+                    checked={role === 'citizen'}
+                    onChange={(event) => setRole(event.target.value)}
+                  />
+                  Citizen
+                </label>
+                <label>
+                  <input
+                    type="radio"
+                    name="role"
+                    value="responder"
+                    checked={role === 'responder'}
+                    onChange={(event) => setRole(event.target.value)}
+                  />
+                  Responder
+                </label>
+              </div>
             </fieldset>
 
-            <label className="onboarding-label">
-              Phone Number
+            <div className="lp-float-field">
               <input
-                className="onboarding-input"
+                id="lp-auth-phone"
+                className="lp-float-input"
                 type="tel"
-                value={phoneNumber}
-                onChange={(event) => setPhoneNumber(event.target.value)}
-                placeholder="+1 555 123 4567"
+                placeholder=" "
                 required
                 autoComplete="tel"
+                value={phoneNumber}
+                onChange={(event) => setPhoneNumber(event.target.value)}
               />
-            </label>
+              <label htmlFor="lp-auth-phone" className="lp-float-label">
+                Phone number
+              </label>
+            </div>
 
             {role === 'responder' ? (
               <>
-                <label className="onboarding-label">
-                  Full Name
+                <div className="lp-float-field">
                   <input
-                    className="onboarding-input"
+                    id="lp-auth-fullname-r"
+                    className="lp-float-input"
                     type="text"
+                    placeholder=" "
+                    required
+                    autoComplete="name"
                     value={fullName}
                     onChange={(event) => setFullName(event.target.value)}
-                    // placeholder="Dr. Jane Doe"
-                    required
                   />
-                </label>
+                  <label htmlFor="lp-auth-fullname-r" className="lp-float-label">
+                    Full name
+                  </label>
+                </div>
 
-                <label className="onboarding-label">
-                  Medical Qualification
+                <div className="lp-float-field">
                   <input
-                    className="onboarding-input"
+                    id="lp-auth-qual"
+                    className="lp-float-input"
                     type="text"
+                    placeholder=" "
+                    required
                     value={medicalQualification}
                     onChange={(event) => setMedicalQualification(event.target.value)}
-                    placeholder="Doctor / Nurse / CPR Certified"
-                    required
                   />
-                </label>
+                  <label htmlFor="lp-auth-qual" className="lp-float-label">
+                    Medical qualification
+                  </label>
+                </div>
 
-                <label className="onboarding-label">
-                  Upload Certificate
+                <div className="lp-file-field">
+                  <label className="lp-float-label" htmlFor="lp-auth-cert">
+                    Certificate file
+                  </label>
                   <input
-                    className="onboarding-input"
+                    id="lp-auth-cert"
+                    className="lp-float-input"
                     type="file"
                     onChange={handleCertificateChange}
                     required
                   />
-                </label>
+                </div>
               </>
             ) : null}
 
             {role === 'citizen' ? (
               <>
-                <label className="onboarding-label">
-                  Full Name
+                <div className="lp-float-field">
                   <input
-                    className="onboarding-input"
+                    id="lp-auth-fullname-c"
+                    className="lp-float-input"
                     type="text"
+                    placeholder=" "
+                    required
+                    autoComplete="name"
                     value={fullName}
                     onChange={(event) => setFullName(event.target.value)}
-                    placeholder="Enter your full name"
-                    required
                   />
-                </label>
+                  <label htmlFor="lp-auth-fullname-c" className="lp-float-label">
+                    Full name
+                  </label>
+                </div>
 
-                <label className="onboarding-label">
-                  Blood Group
+                <div className="lp-select-outlined">
+                  <label htmlFor="lp-auth-blood">Blood group</label>
                   <select
-                    className="onboarding-input"
+                    id="lp-auth-blood"
                     value={bloodGroup}
                     onChange={(event) => setBloodGroup(event.target.value)}
                   >
@@ -251,42 +283,51 @@ export default function AuthPage() {
                       </option>
                     ))}
                   </select>
-                </label>
+                </div>
 
-                <label className="onboarding-label">
-                  Emergency Contact Name
+                <div className="lp-float-field">
                   <input
-                    className="onboarding-input"
+                    id="lp-auth-ec-name"
+                    className="lp-float-input"
                     type="text"
+                    placeholder=" "
+                    required
+                    autoComplete="section-emergency name"
                     value={emergencyContactName}
                     onChange={(event) => setEmergencyContactName(event.target.value)}
-                    placeholder="Contact person name"
-                    required
                   />
-                </label>
+                  <label htmlFor="lp-auth-ec-name" className="lp-float-label">
+                    Emergency contact name
+                  </label>
+                </div>
 
-                <label className="onboarding-label">
-                  Emergency Contact Phone
+                <div className="lp-float-field">
                   <input
-                    className="onboarding-input"
+                    id="lp-auth-ec-phone"
+                    className="lp-float-input"
                     type="tel"
+                    placeholder=" "
+                    required
+                    autoComplete="tel"
                     value={emergencyContactPhone}
                     onChange={(event) => setEmergencyContactPhone(event.target.value)}
-                    placeholder="+1 555 123 4567"
-                    required
                   />
-                </label>
+                  <label htmlFor="lp-auth-ec-phone" className="lp-float-label">
+                    Emergency contact phone
+                  </label>
+                </div>
 
-                <label className="onboarding-label">
-                  Medical Conditions/Allergies
+                <div className="lp-textarea-outlined">
+                  <label htmlFor="lp-auth-medical">
+                    Medical conditions / allergies (optional)
+                  </label>
                   <textarea
-                    className="onboarding-input"
+                    id="lp-auth-medical"
+                    rows={4}
                     value={medicalConditions}
                     onChange={(event) => setMedicalConditions(event.target.value)}
-                    placeholder="Optional details (e.g., diabetes, penicillin allergy)"
-                    rows={4}
                   />
-                </label>
+                </div>
               </>
             ) : null}
           </>
@@ -301,13 +342,13 @@ export default function AuthPage() {
         </button>
 
         {isVerifyingCredentials ? (
-          <p style={{ marginTop: 10, fontWeight: 700, color: '#0f766e' }}>
-            Verifying Credentials with Medical Database...
+          <p className="lp-auth-verify">
+            Verifying credentials with medical database…
           </p>
         ) : null}
       </form>
 
-      <div style={{ marginTop: 12 }}>
+      <div className="lp-auth-switch">
         {mode === 'signup' ? (
           <button type="button" className="role-btn" onClick={() => setMode('login')}>
             Already have an account? Login
@@ -319,9 +360,7 @@ export default function AuthPage() {
         )}
       </div>
 
-      {message ? (
-        <p style={{ marginTop: 12, fontWeight: 700, color: '#0f172a' }}>{message}</p>
-      ) : null}
+      {message ? <p className="lp-auth-message">{message}</p> : null}
     </div>
   )
 }
