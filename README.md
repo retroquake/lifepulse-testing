@@ -29,7 +29,6 @@ LifePulse is a real-time, community-driven emergency response platform designed 
 * **Backend & Database:** [Supabase](https://supabase.com/) (PostgreSQL)
 * **Real-time Engine:** Supabase Broadcast & Presence (Postgres Changes)
 * **Authentication:** Supabase Auth with custom `user_metadata` roles.
-* **Icons:** [Lucide-React](https://lucide.dev/)
 * **Deployment:** Vercel
 
 ---
