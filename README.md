@@ -1,20 +1,42 @@
-# React + Vite
+# ❤️ LifePulse
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+**Bridging the "Silent Gap" in Emergency Response.**
 
-## LifePulse / Supabase
+LifePulse is a real-time, community-driven emergency response platform designed to connect **Citizens** in medical distress with nearby, verified **Medical Responders**. By leveraging real-time geolocation and instant medical data sharing, LifePulse reduces response times during the critical "Golden Hour."
 
-Run `supabase/migrations/20260220120000_add_emergency_phone_columns.sql` in the Supabase **SQL Editor** so `emergencies` has `citizen_phone` and `responder_phone` (used for SOS inserts, accept updates, and `tel:` links). Without these columns, the app retries without the missing field and logs a warning.
+---
 
-Currently, two official plugins are available:
+## 🚀 Key Features
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+### **For Citizens (In Distress)**
+* **One-Tap SOS:** Instant emergency broadcast with precise GPS coordinates.
+* **Medical Payload:** Automatically shares blood group, allergies, and chronic conditions with the responder upon acceptance.
+* **Bystander CPR Metronome:** A built-in 110 BPM audio/visual guide to assist bystanders before the professional arrives.
+* **Immediate Action Checklist:** Clear, calm instructions on scene management (e.g., "Unlock the door," "Secure pets").
+* **Direct Line:** One-tap calling to the assigned responder via secure `tel:` integration.
 
-## React Compiler
+### **For Medical Responders**
+* **Real-time Dashboard:** Live feed of nearby active emergencies filtered by status.
+* **Credential Verification:** A secure onboarding gate to ensure only qualified professionals can accept requests.
+* **Integrated Navigation:** One-click routing via Google Maps to the citizen’s exact location.
+* **Patient Context:** Full access to the citizen’s emergency contact and medical profile upon acceptance.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🛠️ Tech Stack
 
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+* **Frontend:** React.js (Vite)
+* **Backend & Database:** [Supabase](https://supabase.com/) (PostgreSQL)
+* **Real-time Engine:** Supabase Broadcast & Presence (Postgres Changes)
+* **Authentication:** Supabase Auth with custom `user_metadata` roles.
+* **Icons:** [Lucide-React](https://lucide.dev/)
+* **Deployment:** Vercel
+
+---
+
+## 🔮 Future Roadmap
+- [ ] **Guardian Alerts:** Automated SMS/Email notifications to saved emergency contacts.
+- [ ] **AI Incident Triage:** Using LLMs to categorize emergency severity based on citizen voice input.
+- [ ] **Wearable Integration:** Triggering SOS automatically via Apple Watch/Fitbit heart rate spikes.
+- [ ] **Offline Mode:** Local caching of medical profiles for intermittent connectivity.
+- [ ] **Hospital Handshake:** Direct data transmission to the nearest ER before the patient arrives.
